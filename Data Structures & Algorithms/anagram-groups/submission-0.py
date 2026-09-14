@@ -1,10 +1,12 @@
+from collections import defaultdict
+from typing import List
+
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        res = {}
-        for i,val in enumerate(strs):
-            sortVal = sorted(val)
-            if tuple(sortVal) not in res:
-                res[tuple(sortVal)] = [val]
-            else:
-                res[tuple(sortVal)].append(val)
+        res = defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for i in s:
+                count[ord(i)-ord('a')] +=1
+            res[tuple(count)].append(s)
         return list(res.values())
